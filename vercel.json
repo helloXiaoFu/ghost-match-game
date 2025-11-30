@@ -1,17 +1,5 @@
 {
   "version": 2,
-  "name": "ghost-match-game",
-  "builds": [
-    {
-      "src": "index.html",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ]
+  "name": "ghost-match-game"
 }
 
