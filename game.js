@@ -94,6 +94,15 @@ class Game {
         document.getElementById('newGameBtn').addEventListener('click', () => this.initGame());
         document.getElementById('hintBtn').addEventListener('click', () => this.showHint());
         document.getElementById('restartBtn').addEventListener('click', () => this.initGame());
+        
+        // 音效按钮
+        const audioBtn = document.getElementById('audioBtn');
+        audioBtn.addEventListener('click', () => {
+            const enabled = audioManager.toggle();
+            audioBtn.textContent = enabled ? '🔊 音效' : '🔇 静音';
+            audioBtn.classList.toggle('muted', !enabled);
+            if (enabled) audioManager.playSelect();
+        });
     }
 
     handleCellClick(e) {
@@ -109,6 +118,7 @@ class Game {
             // 第一次选择
             this.selectedCell = { row, col, element: cell };
             cell.classList.add('selected');
+            audioManager.playSelect();
         } else {
             // 第二次选择
             const { row: selectedRow, col: selectedCol, element: selectedElement } = this.selectedCell;
@@ -128,6 +138,7 @@ class Game {
                 selectedElement.classList.remove('selected');
                 this.selectedCell = { row, col, element: cell };
                 cell.classList.add('selected');
+                audioManager.playSelect();
             }
         }
     }
@@ -170,6 +181,7 @@ class Game {
             this.checkGameOver();
         } else {
             // 无效移动，交换回来
+            audioManager.playInvalid();
             setTimeout(() => {
                 const temp = this.board[row1][col1];
                 this.board[row1][col1] = this.board[row2][col2];
@@ -253,6 +265,9 @@ class Game {
                     this.createParticles(cell);
                 }
             });
+            
+            // 播放消除音效
+            audioManager.playMatch();
 
             // 计算得分
             this.score += matches.length * 10 * (matches.length >= 4 ? 2 : 1);
@@ -269,6 +284,7 @@ class Game {
             // 下落
             this.applyGravity();
             this.renderBoard();
+            audioManager.playDrop();
 
             // 等待下落动画
             await this.delay(CONFIG.ANIMATION_DURATION);
@@ -468,6 +484,13 @@ class Game {
             ? `太棒了！你的得分：<span id="finalScore">${this.score}</span>` 
             : `很遗憾！你的得分：<span id="finalScore">${this.score}</span>`;
         this.modal.classList.add('show');
+        
+        // 播放胜利或失败音效
+        if (won) {
+            audioManager.playWin();
+        } else {
+            audioManager.playLose();
+        }
     }
 
     delay(ms) {
