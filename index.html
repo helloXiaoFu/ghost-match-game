@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小鬼消消乐 👻</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1>👻 小鬼消消乐 👻</h1>
+            <div class="game-info">
+                <div class="info-item">
+                    <span class="label">得分：</span>
+                    <span class="score" id="score">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">移动：</span>
+                    <span class="moves" id="moves">30</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">目标：</span>
+                    <span class="target" id="target">1000</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="game-board" id="gameBoard">
+            <!-- 游戏方块将通过JavaScript动态生成 -->
+        </div>
+
+        <div class="game-controls">
+            <button class="btn btn-primary" id="newGameBtn">🎮 新游戏</button>
+            <button class="btn btn-secondary" id="hintBtn">💡 提示</button>
+        </div>
+
+        <!-- 游戏结束弹窗 -->
+        <div class="modal" id="gameOverModal">
+            <div class="modal-content">
+                <h2 id="modalTitle">🎉 恭喜过关！</h2>
+                <p id="modalMessage">你的得分：<span id="finalScore">0</span></p>
+                <button class="btn btn-primary" id="restartBtn">再玩一次</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
+

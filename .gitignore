@@ -1,0 +1,22 @@
+# Vercel
+.vercel
+
+# 系统文件
+.DS_Store
+*.swp
+*.swo
+*~
+
+# 编辑器
+.vscode/
+.idea/
+*.sublime-*
+
+# 日志
+*.log
+npm-debug.log*
+
+# 临时文件
+tmp/
+temp/
+
